@@ -15,16 +15,16 @@
 
 <div class="page-layout">
 
-	<form action="whDispatch.php" method="post" class="container">
+    <form action="whDispatch.php" method="post" class="container">
         <h2 class="text-center head">Warehouse Arrival</h2>
             <div class="form-group">
             <label class="text-center">PO Number</label>
-    		<input type="text" name='purchaseOrderNumber'>
+            <input type="text" name='purchaseOrderNumber'>
               </div>
 
             <div class="form-group">
             <label class="text-center">Supplier Number</label>
-    		<input type="text" name='plateNumber'>
+            <input type="text" name='plateNumber'>
             </div>  
             <input type="submit" class="log-button btn btn-primary" name="submit" value="ARRIVED">
 

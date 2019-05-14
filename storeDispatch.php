@@ -6,7 +6,12 @@ date_default_timezone_set('Asia/Singapore');
 $conn_wms = wms_uat();
 
     if(isset($_POST['submit'])) {
+        ?>
+            <script type="text/javascript">
+                alert("Store Truck Arrived!");   
+            </script>
 
+        <?php
         $plateNo = $_POST['plate_no']; 
         $poNo = $_POST['po_no'];
         $date_clicked = date('Y-m-d H:i:s');
