@@ -1,0 +1,52 @@
+body {
+    font-family: Arial;
+    font-size: 12px;
+    padding: 0px;
+    margin: 0px;
+}
+
+label {
+    margin: 5px;
+}
+
+button {
+    width: 150px;
+}
+.page-layout{
+    position: relative;
+    width: 220px;
+    padding: 0;
+    border:1px solid #3273DC;
+    border-radius: 2px;
+    background-color: #eee;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.head { 
+    text-decoration: underline;
+    clear: left;
+}
+
+.form-group{
+    margin:0px 0px 5px 20px;
+}
+.form-group select{
+    width: 170px;
+}
+.form-group input,select{
+    padding:2px;
+    width: 160px;
+}
+
+.right {
+    margin-left: 19px;
+    margin-top: 5%;
+}
+
+.btn-margin {
+    margin: 25px;
+
+}
