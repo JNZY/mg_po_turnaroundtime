@@ -67,6 +67,14 @@ body {
     background-color: red;
     margin:0px 0px 5px 20px;
 }
+.alert1{
+    width: 165px;
+    padding:1px;
+    text-align: center;
+    color: #fff;
+    background-color: green;
+    margin:0px 0px 5px 20px;
+}
 .conceal{
     visibility: hidden;
 }

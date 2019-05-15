@@ -10,15 +10,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Success</title>
 </head>
 <body>
 
 <div class="page-layout">
-
-	<div class="alert alert-danger mt-5" role="alert">
+	<div class="alert1 alert-success mt-5" role="alert">
 		<div class="text-center">
-	  <label>Duplicate PO</label><br>
+	  <label>SUCCESS</label><br>
 	  <a class="btn btn-primary btn-sm" href="/first/whArrival.php">GOBACK</a>
 	</div>
 	</div>

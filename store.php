@@ -16,13 +16,17 @@
 
 
 <div class="page-layout">
-    <center>
-    <div id="btn-1">
-    <a href="whArrival.php" class="btn btn-outline-primary btn-lg mb-5 mt-5">Arrive</a>
-    </center>
+    <a href="login.php" class="btn btn-primary ml-0">Back</a>
 
     <center>
-    <a href="whDispatch.php" class="btn btn-outline-primary btn-lg mb-5">Dispatch</a>
+    	<h2 class="text-center head">Store</h2>
+    <div id="btn-1">
+    <a href="storeArrival.php" class="btn btn-outline-primary btn-lg mb-5 mt-5">Arrive</a>
+    </center>
+
+
+    <center>
+    <a href="storeDispatch.php" class="btn btn-outline-primary btn-lg mb-5">Dispatch</a>
     </center>
 </div>
 

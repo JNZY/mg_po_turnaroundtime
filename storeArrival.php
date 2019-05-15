@@ -15,7 +15,7 @@
 
 
 <div class="page-layout">
-	<form action="storeDispatch.php" method="post" class="container">
+	<form action="logic/storeA.php" method="post" class="container">
         <h2 class="text-center head">Store <br>Arrival</h2>
         <div class="form-group">
             <label class="text-center">PO Number</label>

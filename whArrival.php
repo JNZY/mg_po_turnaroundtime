@@ -14,9 +14,11 @@
 
 
 <div class="page-layout">
+        <a href="warehouse.php" class="btn btn-primary ml-0">Back</a>
 
-    <form action="whDispatch.php" method="post" class="container">
-        <h2 class="text-center head">Warehouse Arrival</h2>
+    <form action="logic/whA.php" method="post" class="container">
+
+        <h2 class="text-center head">Arrival</h2>
             <div class="form-group">
             <label class="text-center">PO Number</label>
             <input type="text" name='purchaseOrderNumber'>
