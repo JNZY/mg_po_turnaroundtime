@@ -1,3 +1,12 @@
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    // redirect them to your desired location
+    header('location: login.php');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -15,11 +24,12 @@
 
 
 <div class="page-layout">
+    <a href="store.php" class="btn btn-primary ml-0">Back</a>
 	<form action="logic/storeA.php" method="post" class="container">
         <h2 class="text-center head">Store <br>Arrival</h2>
         <div class="form-group">
             <label class="text-center">PO Number</label>
-    		<input type="text" name="po_no">
+    		<input type="number" name="po_no">
         </div>
 
         <div class="form-group">

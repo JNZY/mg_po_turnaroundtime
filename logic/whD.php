@@ -24,7 +24,7 @@ $ora_conn = wms_uat();
 
  		
  		if($number_of_rows > 0) {
--
+
  				$defaultData ="UPDATE mg_po_turnaroundtime SET WH_DISPATCH_DATE=SYSDATE, STATUS='WD' WHERE PO_NBR= '".$po_nbr."'";
  				$defaultDataRes=$ora_conn->prepare($defaultData); 
  				$defaultDataRes->execute();

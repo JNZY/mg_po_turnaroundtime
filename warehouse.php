@@ -1,3 +1,10 @@
+<?php 
+
+    session_start();
+    echo $_SESSION['username'];
+    echo "<br>";
+    echo $_SESSION['location'];
+?>
 <!DOCTYPE html>
 <html>
 
@@ -16,7 +23,10 @@
 
 
 <div class="page-layout">
-    <a href="login.php" class="btn btn-primary ml-0">Back</a>
+    <form action="logic/logout.php" method="post">
+        <a href="login.php" class="btn btn-primary ml-0" name="logout">Back</a>
+
+    </form>
 
     <center>
     	<h2 class="text-center head">Warehouse</h2>

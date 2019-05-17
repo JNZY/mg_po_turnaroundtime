@@ -14,12 +14,13 @@
 <body>
 
 <div class="page-layout">
+    <a href="warehouse.php" class="btn btn-primary ml-0">Back</a>
 
 	<form action="logic/strD.php" method="post" class="container">
         <h2 class="text-center head">Dispatch</h2>
     	<div class="form-group">
             <label class="text-center">PO Number</label>
-    		<input type="text" value="" name="peo_number">
+    		<input type="number" value="" name="peo_number">
     	</div>
 
 

@@ -1,3 +1,11 @@
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    // redirect them to your desired location
+    header('location: login.php');
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html>
 
@@ -21,7 +29,7 @@
         <h2 class="text-center head">Arrival</h2>
             <div class="form-group">
             <label class="text-center">PO Number</label>
-            <input type="text" name='purchaseOrderNumber'>
+            <input type="number" name='purchaseOrderNumber'>
               </div>
 
             <div class="form-group">

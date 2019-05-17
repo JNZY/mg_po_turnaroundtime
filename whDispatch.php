@@ -21,7 +21,7 @@
          <h2 class="text-center head">Dispatch</h2>
     	<div class="form-group">
             <label class="text-center">PO Number</label>
-    		<input type="text" value="" name="peo_number">
+    		<input type="number" value="" name="peo_number">
         </div>
     		 <div class="form-group">
             <label class="text-center">Supplier Number</label>

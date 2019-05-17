@@ -1,4 +1,11 @@
 <?php 
+	require_once('../config.php');
+	date_default_timezone_set('Asia/Singapore');
+	session_start();
+	$ora_conn = wms_uat();
+
+
+if(isset($_POST['login'])) {
 
 	$username = $_POST['username'];
 	$password = $_POST['password'];
@@ -17,37 +24,44 @@
 	}else{
 	   $db_select = mysql_select_db("users_turnaroundtime",$connection); 
 	   if (!$db_select) { 
-	       die("Database selection failed:: " . mysql_error()); 
+	       die("Database serialize(value)lection failed:: " . mysql_error()); 
 	   } 
 	}
 
 
-	$result = mysql_query("select * from users where username = '$username' and password = '$password' ") or die("failed to query db".mysql_error() );
+	$result = mysql_query("SELECT * from employers where user_id = '$username' and password = '$password'") or die("failed to query db".mysql_error() );
 	$row = mysql_fetch_array($result);
 
+	if($row == 0 ) {
+		echo "account doesn't exist";
+	}
 
+	if($row['user_id'] == $username && $row['password' == $password] && $row['location'] == $locations) { 
 
+		$_SESSION['username'] = $username;
+		$_SESSION['location'] = $locations;
 
-	if($row['username'] == $username && $row['password' == $password]) { 
-		if($locations == '80181 - BD' || $locations == '80001 - LB' || $locations == '80051 - PB' || $locations == '80141 - SI' || $locations == '80151 - LT') {
-			if($row['location'] == 'WH' ) {
-				header("location: ../warehouse.php");
+		if($row['user_type'] == 'user') {
+			if($row['loc_type'] == 'WH') {
+
+				header('Location: ../warehouse.php');
+			} else if($row['loc_type'] == 'ST') {
+				header('Location: ../store.php');
 			} else {
-				echo "your account is store only";
+				echo "account not identified";
 			}
-		} else {
-			if($row['location'] == 'ST' ) {
-				header("location: ../store.php");
-			} else {
-				echo "your account is warehouse only";
-			}
+		} else if($row['user_type' == 'admin']) {
+			header('Location: ../admin.php');
 		}
+
 
 	}
 	else {
-		echo "Wrong input";
-	}
-	
+		$error = "Invalid Input";
 
+	}
+
+
+}
 
 ?>
