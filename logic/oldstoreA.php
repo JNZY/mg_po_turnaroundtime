@@ -19,16 +19,10 @@ $conn_wms = wms_uat();
         $number_characters = strlen($plateNo);
         $status = 'SA';
 
-        $_SESSION['resendPO'] = "$poNo";
-        $_SESSION['resendPlateNumber'] = "$plateNo";
-
-   
-
         if($number_characters > 9) {
-            $_SESSION['message'] = "Enter Plate Number < 9";
+            $_SESSION['error_plateNumber'] = "Plate number exceeds";
             header('Location: ../storeArrival.php');
         } else {
-
           if(!empty($_POST['plate_no'] && $_POST['po_no'])) {
               
               $checkExist = "SELECT PO_NBR FROM mg_po_turnaroundtime WHERE PO_NBR = '".$poNo."' ";
@@ -43,20 +37,8 @@ $conn_wms = wms_uat();
 
               if($number_of_rows>0) {
 
-                 $checkD = " SELECT * FROM mg_po_turnaroundtime WHERE PO_NBR = '".$poNo."' and ST_LOC = '".$loc_id."' ";
-                 $checkDRes = $conn_wms->prepare($checkD);
-                 $checkDRes->execute();
-                 $number_of_rows_D = $checkDRes->fetchColumn(); 
 
-                 if($number_of_rows_D > 0) {
-                   $_SESSION['message'] = "Duplicate PO on Store";
-                   header('Location: ../storeArrival.php');
-
-                 } else {
-
-
-
-                  $Other_Data = "SELECT PO_NBR, PO_LOCATION, ORIG_APPROVAL_DATE, SUPP_PLATE_NO, WH_ARRRIVAL_DATE, WH_DISPATCH_DATE, WH_LOC, WH_USER from mg_po_turnaroundtime where PO_NBR in (".$poNo.")";
+                  $Other_Data = "SELECT PO_NBR, PO_LOCATION, ORIG_APPROVAL_DATE, SUPP_PLATE_NO, WH_ARRRIVAL_DATE, WH_DISPATCH_DATE from mg_po_turnaroundtime where PO_NBR in (".$poNo.")";
                   $Other_DataRes=$conn_wms->prepare($Other_Data); 
                   $Other_DataRes->execute();
 
@@ -67,46 +49,14 @@ $conn_wms = wms_uat();
                       $supp_plate_no = $row['SUPP_PLATE_NO'];
                       $wh_arrival_date = $row['WH_ARRRIVAL_DATE'];
                       $wh_dispatch_date = $row['WH_DISPATCH_DATE'];
-                      $wh_loc = $row['WH_LOC'];
-                      $wh_user = $row['WH_USER'];
                   } 
+                      $query = "INSERT INTO mg_po_turnaroundtime(PO_NBR, PO_LOCATION, ORIG_APPROVAL_DATE, SUPP_PLATE_NO, WH_ARRRIVAL_DATE, WH_DISPATCH_DATE, STORE_ARRRIVAL_DATE, STATUS, ST_USER, ST_LOC, WH_PLATE_NO) VALUES('$po_number', '$po_location', '$orig_approv_date', '$supp_plate_no', '$wh_arrival_date', '$wh_dispatch_date', SYSDATE, '$status', '$user', '$loc_id', '$plateNo')";
+                      $facresult=$conn_wms->prepare($query); 
+                      $facresult->execute();
 
-                  if(empty($wh_dispatch_date)) {
-                    $_SESSION['message'] = "PO Not Dispatched from WH";
-                    header("location: ../storeArrival.php");
-                  } else {
+                  $_SESSION['po_checker'] = "Truck Successfully Arrive";
+                  header("location: ../storeArrival.php");
 
-                       $arrivalSQL = " INSERT into mg_po_turnaroundtime (select
-                                      PO_NBR,
-                                      PO_LOCATION,
-                                      ORIG_APPROVAL_DATE,
-                                      SUPP_PLATE_NO,
-                                      WH_ARRRIVAL_DATE,
-                                      WH_DISPATCH_DATE,
-                                      SYSDATE,
-                                      null,
-                                      'SA',
-                                      '".$plateNo."',
-                                      WH_LOC,
-                                      WH_USER,
-                                      '".$loc_id."',
-                                      '".$user."'
-                                      FROM mg_po_turnaroundtime where po_nbr = '".$poNo."' and rownum = 1
-                                    ) ";
-                                    $arrivalSQLRes=$conn_wms->prepare($arrivalSQL); 
-                                    $arrivalSQLRes->execute();
-
-                        // DISABLED FOR NOW...
-                        $removeFirstEntry = " DELETE FROM mg_po_turnaroundtime WHERE PO_NBR = '".$poNo."' and STORE_ARRRIVAL_DATE is null ";
-                        $removeFirstEntryRes=$conn_wms->prepare($removeFirstEntry); 
-                        $removeFirstEntryRes->execute();
-
-
-                    $_SESSION['message'] = "Truck Successfully Arrive";
-                    header("location: ../storeArrival.php");
-                  }
-                     
-                 }
                   } else {
                       $AtestData = "SELECT COUNT(*) from ordhead@mgrmst where order_no IN 
                       (".$poNo.")";
@@ -115,7 +65,7 @@ $conn_wms = wms_uat();
                       $checker_rows = $AtestDataRes->fetchColumn(); 
 
                   if($checker_rows == 0 ) {
-                      $_SESSION['message'] = "PO Doesnt Exist";
+                      $_SESSION['po_checker_error'] = "PO doesn't exist";
                       header("location: ../storeArrival.php");
 
                       } else {
@@ -138,14 +88,14 @@ $conn_wms = wms_uat();
                       $queryUpdateResult = $conn_wms->prepare($queryUpdate);
                       $queryUpdateResult->execute();
 
-                      $_SESSION['message'] = "Truck Successfully Arrived";
+                      $_SESSION['po_checker'] = "Truck Successfully Arrive";
                       header("location: ../storeArrival.php");
                   }
                   
                   }
 
           } else {
-              $_SESSION['message'] = "Invalid Input";
+              $_SESSION['no_input'] = "Invalid Input";
               header('Location: ../storeArrival.php');
 
           }  

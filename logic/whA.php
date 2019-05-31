@@ -4,12 +4,6 @@ require_once('../config.php');
 date_default_timezone_set('Asia/Singapore');
 session_start();
 
-if(!isset($_SERVER['HTTP_REFERER'])){
-    // redirect them to your desired location
-    header('location: ../login.php');
-    exit;
-}
-
 $conn_wms = wms_uat();
 
 $connection = mysql_connect("localhost","root"); 
@@ -26,8 +20,14 @@ if(!$connection) {
 
         $purchaseOrderNumber = $_POST['purchaseOrderNumber'];
         $plateNumber = $_POST['plateNumber'];
+        $number_characters = strlen($plateNumber);
+        $_SESSION['resendPO'] = "$purchaseOrderNumber";
+        $_SESSION['resendPlateNumber'] = "$plateNumber";
 
-
+        if($number_characters > 9) {
+            $_SESSION['message'] = "Enter Plate Number < 9";
+            header('Location: ../whArrival.php');
+        } else {
         if(!empty($_POST['plateNumber'] && $_POST['purchaseOrderNumber'])) {
 
                     //Check if PO_NBR input by user already exist in mg_po_turnaroundtime table
@@ -40,18 +40,20 @@ if(!$connection) {
                     $number_of_rows = $testDataRes->fetchColumn(); 
 
                     if($number_of_rows>0) {
-                        header("Location: ../errors/duplicatePO.php");
+                        $_SESSION['message'] = "PO already arrived";
+                        header('Location: ../whArrival.php');
                     } else {
                         
                         $AtestData = "SELECT COUNT(*) from ordhead@mgrmst where order_no IN 
                         (".$purchaseOrderNumber.")";
                         $AtestDataRes=$conn_wms->prepare($AtestData);
                         $AtestDataRes->execute();
-                        $checker_rows = $testDataRes->fetchColumn(); 
+                        $checker_nrows = $AtestDataRes->fetchColumn(); 
 
-                        if($checker_rows == 0) {
-                            echo "po dont exist";
-                        } else if(checker_rows > 0) {
+                        if($checker_nrows == 0) {
+                            $_SESSION['message'] = "PO Doesnt Exist";
+                            header('Location: ../whArrival.php');
+                        } else {
                             $Other_Data = "SELECT ORDER_NO, LOCATION, ORIG_APPROVAL_DATE from ordhead@mgrmst where order_no in (".$purchaseOrderNumber.")";
 
                             $Other_DataRes=$conn_wms->prepare($Other_Data); 
@@ -76,7 +78,8 @@ if(!$connection) {
 
                                 $queryUpdateResult = $conn_wms->prepare($queryUpdate);
                                 $queryUpdateResult->execute();
-                                header('location: ../warehouse.php');
+                                $_SESSION['message'] = "PO Successfully Arrived";
+                                header('Location: ../whArrival.php');
                         }
 
 
@@ -86,7 +89,9 @@ if(!$connection) {
                    
 
         } else {
-            header('Location: errors/noINPUT.php');
+            $_SESSION['message'] = "Invalid Input";
+            header('Location: ../whArrival.php');
+        }
         }
     }
 

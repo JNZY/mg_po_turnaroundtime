@@ -1,3 +1,11 @@
+<?php 
+if(!isset($_SERVER['HTTP_REFERER'])){
+    // redirect them to your desired location
+    header('location: index.php');
+    exit;
+}
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -9,29 +17,30 @@
 <link rel="stylesheet" type="text/css" href="assets/bootstrap-grid.min.css">
 <link rel="stylesheet" type="text/css" href="assets/bootstrap-reboot.min.css">
 
-<title> supplier_po_kpi </title>
+<title> Admin </title>
 <body>
 
 
-
+<small>
 <div class="page-layout">
     <form action="logic/logout.php" method="post">
-        <a href="login.php" class="ml-0 log-button" name="logout">Logout</a>
+        <a href="index.php" class="ml-0 btn btn-primary log-button" name="logout">Logout</a>
 
     </form>
-  <form action="logic/admin.php" method="post" class="container">
+    
+  <form action="logic/admin.php" method="post" class="">
         <h2 class="text-center head">Admin</h2>
-
+<div class="form-group">
             <label class="text-center">User ID</label>
-        <input type="text" name="username" required>
-
-
-            <label class="text-center" required>Password</label>
-        <input type="password" name="password" required>
-
-
+        <input type="text" name="username">
+</div>
+<div class="form-group">
+            <label class="text-center">Password</label>
+        <input type="password" name="password">
+</div>
+<div class="form-group">
             <label>Location</label>
-                        <select name="locations" required>
+                        <select name="locations">
                         <option value="">Select Location</option>
 
                           <?php 
@@ -59,23 +68,32 @@
                               }
                           ?>
                         </select>
-
+</div>
+<div class="form-group">
             <label>Location Type</label>
-            <select name="location_type" required>
+            <select name="location_type">
             <option value="">SelectType</option>
             <option value="WH">Warehouse</option>
             <option value="ST">Store</option>
             </select>
-
+</div>
+<div class="form-group">
             <label>User Type</label>
-            <select name="user_type" required>
+            <select name="user_type">
             <option value="">Select User Type</option>
             <option value="admin">Admin</option>
             <option value="user">User</option>
             </select>
-
-           
-        <input type="submit" class="log-button ml-0" name="submit" value="CREATE">
+            <?php
+              if (isset($_SESSION['message'])) {
+              echo "<p class=".(in_array($_SESSION['message'], ['Input Invalid', 'Enter Plate Number < 9', 'Username already exist', 'Account Creation Failed'])  ? 'text-danger' : 'text-success').">".$_SESSION['message']."</p>";
+              unset($_SESSION['message']);
+             }
+            ?>   
+          <a href="forgetPassword.php"><small>Forget Password</small></a>
+</div>
+            
+        <input type="submit" class="btn btn-primary log-button ml-0" name="submit" value="CREATE">
 
     </form>
 </div>

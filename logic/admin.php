@@ -24,19 +24,30 @@
 		   	} 
 		}
 
-		$checkDupe = mysql_query("SELECT * from employers WHERE user_id = '".$username."' ");
-		$row = mysql_fetch_array($checkDupe);
-
-		if($row > 0) {
-			echo "cannot create username already exist";
+		if(empty($username || $password || $location || $location_type || $user_type)) {
+			$_SESSION['message'] = "Input Invalid";
+			header('Location: ../admin.php');
 		} else {
-			$sql = mysql_query("INSERT INTO employers (user_id, password, location, loc_type, user_type) VALUES ('$username', '$password', '$location', '$location_type', '$user_type')");
-			if($sql) {
-				echo "success";
+			$checkDupe = mysql_query("SELECT * from employers WHERE user_id = '".$username."' ");
+			$row = mysql_fetch_array($checkDupe);
+
+			if($row > 0) {
+				$_SESSION['message'] = "Username already exist";
+				header('Location: ../admin.php');
 			} else {
-				echo "failed";
+				$sql = mysql_query("INSERT INTO employers (user_id, password, location, loc_type, user_type) VALUES ('$username', '$password', '$location', '$location_type', '$user_type')");
+				if($sql) {
+					echo "success";
+					$_SESSION['message'] = "Account Created Successfully";
+					header('Location: ../admin.php');
+				} else {
+					$_SESSION['message'] = "Account Creation Failed";
+					header('Location: ../admin.php');
+				}
 			}
 		}
+
+		
 
 		
 	}

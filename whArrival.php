@@ -1,10 +1,10 @@
 <?php 
 if(!isset($_SERVER['HTTP_REFERER'])){
     // redirect them to your desired location
-    header('location: login.php');
+    header('location: index.php');
     exit;
 }
-
+    session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,38 +12,53 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <!-- 
     Local
 -->
-<link rel="stylesheet" type="text/css" href="assets/style.css">
-<link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-grid.min.css">
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-reboot.min.css">
+     <link rel="stylesheet" type="text/css" href="testing.css">
+     <link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
 
-<title> supplier_po_kpi </title>
+<title> Transport Turnaround Time </title>
 <body>
+        <div class="page-layout">
+        <form action="logic/back.php" method="post" class="m-0">
+            <input type="submit" class="m-0" name="whABack" value="BACK">
+        </form>
 
+    <form action="logic/whA.php" method="post" class="m-0">
+        <center><img src="assets/logo.jpg" height="45" width="65" class=""></center>
+        <center>
+        <label style="font-weight:  bold; font-size: 10px;">Transport Turnaround Time</label>
+        <br>
+        <label style="font-weight:  bold; font-size: 9px;" class="ml-2 mb-3">ARRIVAL</label>
+        <br>
+        <label class="ml-2 mb-0 mt-2" style="font-size: 8px">PO#</label><br>
+        <input name='purchaseOrderNumber' class="ml-2 mb-0" type="text" name="" width="150px" value="<?php           
+                                     if (isset($_SESSION['resendPO']))
+                                     {
+                                         echo $_SESSION['resendPO'];
+                                     } ?>"><br>
+        <label class="ml-2 mb-0" style="font-size: 8px">SUPP PLATE#</label><br>
+        <input name='plateNumber' class="ml-2 mb-0" type="text" name="" width="150px" value="<?php           
+                                     if (isset($_SESSION['resendPlateNumber']))
+                                     {
+                                         echo $_SESSION['resendPlateNumber'];
+                                     } ?>"><br>
+              <small>
+                
+               <?php
+                 if (isset($_SESSION['message'])) {
+                 echo "<p class=".(in_array($_SESSION['message'], ['Invalid Input', 'Enter Plate Number < 9', 'PO Doesnt Exist', 'PO already arrived'])  ? 'text-danger' : 'text-success').">".$_SESSION['message']."</p>";
+                 unset($_SESSION['message']);
+                }
+               ?>     
+            </small>
+        <input type="submit" name="submit" value="ARRIVED" class="btn btn-primary mt-1">
 
-<div class="page-layout">
-        <a href="warehouse.php" class="btn btn-primary ml-0">Back</a>
-
-    <form action="logic/whA.php" method="post" class="container">
-
-        <h2 class="text-center head">Arrival</h2>
-            <div class="form-group">
-            <label class="text-center">PO Number</label>
-            <input type="number" name='purchaseOrderNumber'>
-              </div>
-
-            <div class="form-group">
-            <label class="text-center">Supplier Number</label>
-            <input type="text" name='plateNumber'>
-            </div>  
-            <input type="submit" class="log-button btn btn-primary" name="submit" value="ARRIVED">
-
+              
+</div>  
 
     </form>
 
 </div>
-</div>
-<
+
 <!-- 
     Bootstrap js
 -->

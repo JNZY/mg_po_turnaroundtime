@@ -1,0 +1,97 @@
+body {
+    font-family: Arial;
+    font-size: 9px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#round {
+    border-radius: 50%;
+}
+
+.page-layout{
+
+    width: 180px;
+    height: 180px;
+    padding: 0;
+    border:1px solid #3273DC;
+    border-radius: 2px;
+    background-color: #eee;
+
+}
+.loader{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #ccc;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    height: 100%;
+}
+.spin{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin:40% auto;
+    color: #000;
+}
+.text-center{
+    text-align: center;
+}
+.head{
+
+    clear: left;
+}
+.form-group{
+    margin:0px 0px 0px 20px;
+}
+.form-group select{
+    width: 170px;
+}
+.form-group input,select{
+    padding:2px;
+    width: 160px;
+}
+.log-button{
+    margin-left:20px;
+    padding:7px 15px;
+    background: transparent;
+    border: 1px solid #171717;
+}
+.log-button:hover{
+    background-color: #000;
+    border: 1px solid #fff;
+    color:#fff;
+}
+.alert{
+    width: 165px;
+    padding:1px;
+    text-align: center;
+    color: #fff;
+    background-color: red;
+    margin:0px 0px 5px 20px;
+}
+.alert1{
+    width: 165px;
+    padding:1px;
+    text-align: center;
+    color: #fff;
+    background-color: green;
+    margin:0px 0px 5px 20px;
+}
+.conceal{
+    visibility: hidden;
+}
+.top{
+  display: block;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+
+

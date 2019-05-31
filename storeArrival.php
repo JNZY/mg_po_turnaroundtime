@@ -1,10 +1,10 @@
 <?php 
 if(!isset($_SERVER['HTTP_REFERER'])){
     // redirect them to your desired location
-    header('location: login.php');
+    header('location: index.php');
     exit;
 }
-
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -13,34 +13,57 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <!-- 
     Local
 -->
-<link rel="stylesheet" type="text/css" href="assets/style.css">
-<link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-grid.min.css">
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-reboot.min.css">
+     <link rel="stylesheet" type="text/css" href="testing.css">
+     <link rel="stylesheet" type="text/css" href="assets/bootstrap.min.css">
 
-<title> supplier_po_kpi </title>
+<title> Transport Turnaround Time </title>
 <body>
 
 
 
 <div class="page-layout">
-    <a href="store.php" class="btn btn-primary ml-0">Back</a>
-	<form action="logic/storeA.php" method="post" class="container">
-        <h2 class="text-center head">Store <br>Arrival</h2>
-        <div class="form-group">
-            <label class="text-center">PO Number</label>
-    		<input type="number" name="po_no">
-        </div>
+   <form action="logic/back.php" method="post" class="m-0">
+               <input type="submit" class="m-0" name="stABack" value="BACK">
+           </form>
 
-        <div class="form-group">
-            <label class="text-center">Store Plate Number</label>
-    		<input type="text" name="plate_no">
-        </div>
+	<form action="logic/storeA.php" method="post" class="m-0">
+            <center><img src="assets/logo.jpg" height="45" width="65" class="">
+                <br>
+            <label style="font-weight:  bold; font-size: 10px;">Transport Turnaround Time</label>
+            <br>
+            <label style="font-weight:  bold; font-size: 9px;" class="ml-2">ARRIVAL</label>
+            <br>
+            <label class="ml-2 mb-0 mt-2" style="font-size: 8px">PO#</label><br>
+            <input class="ml-2 mb-0" input type="number" name="po_no" value="<?php           
+                                     if (isset($_SESSION['resendPO']))
+                                     {
+                                         echo $_SESSION['resendPO'];
+                                     } ?>" width="150px"><br>
+            <label class="ml-2 mb-0" style="font-size: 8px">SUPP PLATE#</label><br>
+            <input class="ml-2 mb-0" type="text" name="plate_no" value="<?php           
+                                     if (isset($_SESSION['resendPlateNumber']))
+                                     {
+                                         echo $_SESSION['resendPlateNumber'];
+                                     } ?>" width="150px"><br>
 
-    		<input type="submit" class="btn btn-primary log-button" name="submit" value="ARRIVED">
-
-    </form>
+                                     <small>
+                                     <?php
+                                       if (isset($_SESSION['message'])) {
+                                       echo "<p class=".(in_array($_SESSION['message'], ['Invalid Input', 'Enter Plate Number < 9', 'PO Doesnt Exist', 'Duplicate PO on Store', 'PO Not Dispatched from WH'])  ? 'text-danger' : 'text-success').">".$_SESSION['message']."</p>";
+                                       unset($_SESSION['message']);
+                                      }
+                                     ?>   </small>
+            
+            <input type="submit" name="submit" value="ARRIVED" class="btn btn-primary mt-1">
+       </center>
+           
+        
+                           
+        
+            
+            
 </div>
+    </form>  
 <!-- 
     Bootstrap js
 -->
