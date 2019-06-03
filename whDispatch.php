@@ -39,7 +39,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
                                      if (isset($_SESSION['resendPO']))
                                      {
                                          echo $_SESSION['resendPO'];
-                                     } ?>" id="po_number" name="peo_number" width="150px"><br>
+                                     } ?>" id="po_number" name="po_number" width="150px"><br>
             <label class="ml-2 mb-0" style="font-size: 8px">SUPP PLATE#</label><br>
             <input class="ml-2 mb-0" type="text" name= "plateNumber" id="plateNumber" readonly width="150px">
             <small>
@@ -63,8 +63,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 -->
 <script src="assets/bootstrap.bundle.min.js"></script>
 <script src="assets/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/jquery.min.js"></script>
+<script type="text/javascript" src="assets/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
-

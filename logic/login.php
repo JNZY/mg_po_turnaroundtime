@@ -58,10 +58,10 @@ if(isset($_POST['login'])) {
 	}
 
 
-	if($row['user_id'] == $username && $row['password' == $password] && $row['location'] == $locations) { 
+	if($row['user_id'] == $username && $row['password' == $password]) { 
 
 		$_SESSION['username'] = $username;
-		$_SESSION['location'] = $locations;
+		$_SESSION['location'] = $row['location'];
 		unset ($_SESSION["errorLogin"]);
 
 		if($row['user_type'] == 'user') {

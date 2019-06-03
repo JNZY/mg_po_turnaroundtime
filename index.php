@@ -19,7 +19,7 @@
       color: #fff;*/
       margin-top: 15px;
       padding: 0px;
-      margin: 13px 0px 0px 0px;
+      margin: 0px 0px 0px 0px;
       font-size: 13px;
     }
     .center {
@@ -76,9 +76,10 @@
   </style>
 </head>
 <body>
-  <div class="layout">
-    <img src="http://10.190.2.241/first/assets/logo.jpg" class="logo">
-    <p class="title center bold">Transport Turnaround Time</p>
+  <div class="layout"><center>
+    <img src="http://10.190.2.241/first/assets/logo.jpg" style="margin: 0px;" height="60" width="60">
+  </center>
+    <p class="title center bold">Transport Turnaround Time</p><br>
 
     <form class="form" action="logic/login.php" method="POST">
       <div class="form-group">
@@ -89,36 +90,7 @@
         <label>Password:</label>
         <input type="password" name="password">
       </div>
-      <div class="form-group">
-        <label>Location:</label>
-        <select name="locations">
-          <option>Select Location</option>
-                        <?php 
-                        require_once('config.php');
-                        date_default_timezone_set('Asia/Singapore');
-
-                        $ora = wms_uat();
-
-
-                          $secondQuery = " SELECT code || ' - ' || facility_id whname,  substr(code,1,5) code4 from whsloc where facility_id in ('LB','PB','SI','LT','BD')
-          union all
-          select TO_CHAR(store)  || ' - ' || store_name stname , substr(store,1,4) code4 from store@mgrmsp where store not in ('1333','1110','2003','1111','2014','2015','2017','3008','3011','3013','5002','5003','5004','5005','5006','5007','5008','5009','5010','6007','6008','6015','7006','7007','7008','7173','7176','7300','7400','9001','9002','9003','9004','9006','9007','9009','9100','9101','9102','9103','9104','9105','9106','9107','9108','9109','9999')
-                            ";
-
-                              $secondQueryRes=$ora->prepare($secondQuery); 
-                              $secondQueryRes->execute();
-
-
-                            while ($row=$secondQueryRes->fetch(PDO::FETCH_ASSOC)) {
-                                $codes=$row['CODE4'];
-                                $names = $row['WHNAME'];
-
-            
-                                echo '<option value="'.$codes.'">'.$names.'</option>';
-                            }
-                        ?>
-        </select>
-      </div>
+      
       <small class="red">
        <?php           
           if (isset($_SESSION['errorLogin']))

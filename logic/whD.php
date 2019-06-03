@@ -6,7 +6,7 @@ $ora_conn = wms_uat();
 
  if (isset($_POST['dispatch'])) {
 
-        $po_nbr = $_POST['peo_number'];
+        $po_nbr = $_POST['po_number'];
 		$plateNumber = $_POST['plateNumber'];
         $number_characters = strlen($plateNumber);
         $_SESSION['resendPO'] = "$po_nbr";
